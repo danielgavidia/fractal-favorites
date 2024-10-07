@@ -7,7 +7,7 @@ const Root = () => {
 			{/* Navbar */}
 			<div>
 				<div>
-					<button onClick={() => navigate("/home")}>Fractal Favorites</button>
+					<button onClick={() => navigate("/")}>Fractal Favorites</button>
 				</div>
 				<div>
 					<button onClick={() => navigate("/search")}>Search</button>

@@ -31,11 +31,15 @@ export const getMoviesFavorites = async (favorites: boolean): Promise<Movie[]> =
 // get all movies, filtering for key words in description
 export const getMoviesDescription = async (description: string): Promise<Movie[]> => {
 	if (description) {
+		const keywords = description.split(" ");
 		const res: Movie[] = await prisma.movie.findMany({
 			where: {
-				description: {
-					contains: description,
-				},
+				AND: keywords.map((keyword) => ({
+					description: {
+						contains: keyword,
+						mode: "insensitive",
+					},
+				})),
 			},
 		});
 		return res;
