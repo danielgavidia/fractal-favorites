@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type { Movie } from "../../../backend/types/types";
 
 interface MovieCardProps {
@@ -5,16 +6,17 @@ interface MovieCardProps {
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {
-	const { title, description, imageUrl } = movie;
+	const { id, title, description } = movie;
+	const navigate = useNavigate();
 
 	return (
-		<div>
+		<button
+			onClick={() => navigate(`/details/${id}`)}
+			className="border-2 border-gray w-full flex flex-col text-start"
+		>
 			<div>{title}</div>
-			<div>{description}</div>
-			<div>
-				<img src={imageUrl} />
-			</div>
-		</div>
+			<div className="text-sm">{description}</div>
+		</button>
 	);
 };
 

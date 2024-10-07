@@ -1,6 +1,19 @@
 import prisma from "./prisma";
 import type { Movie } from "../types/types";
 
+// Get single movie, using id
+export const getMovie = async (id: string): Promise<Movie> => {
+	const res: Movie | null = await prisma.movie.findUnique({
+		where: {
+			id: id,
+		},
+	});
+	if (!res) {
+		throw new Error("Movie not found");
+	}
+	return res;
+};
+
 // Get all movie data
 export const getMovies = async (): Promise<Movie[]> => {
 	const res: Movie[] = await prisma.movie.findMany({});
