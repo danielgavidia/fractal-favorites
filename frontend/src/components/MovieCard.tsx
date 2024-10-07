@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import type { Movie } from "../../../backend/types/types";
 
+import { updateMovieFavoriteStatus } from "../utils/express";
+
 interface MovieCardProps {
 	movie: Movie;
 }
@@ -16,6 +18,9 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 		>
 			<div>{title}</div>
 			<div className="text-sm">{description}</div>
+			<div>
+				<button onClick={() => updateMovieFavoriteStatus(id, true)}>Like</button>
+			</div>
 		</button>
 	);
 };
