@@ -7,9 +7,9 @@ interface MovieListProps {
 
 const MovieList = ({ movies }: MovieListProps) => {
 	return (
-		<div>
+		<div className="grid grid-cols-3">
 			{movies.map((movie, index) => {
-				return <MovieCard key={index} movie={movie} />;
+				return <MovieCard key={index} movie={movie} condensed={true} />;
 			})}
 		</div>
 	);

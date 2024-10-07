@@ -25,7 +25,7 @@ const RouteSearch = () => {
 	}, []);
 
 	return (
-		<div className="w-full h-full bg-gray-400">
+		<div className="w-full h-full bg-primary-content p-4">
 			<SearchBar handleSearchMovies={handleSearchMovies} />
 			<MovieList movies={movies} />
 		</div>
