@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Movie } from "../../../backend/types/types";
 import { getMoviesFavorites } from "../utils/express";
-import MovieCard from "../components/MovieCard";
+import MovieList from "../components/MovieList";
 
 const RouteFavorites = () => {
 	const [movies, setMovies] = useState<Movie[]>([]);
@@ -15,10 +15,8 @@ const RouteFavorites = () => {
 		fetchMovies();
 	}, []);
 	return (
-		<div>
-			{movies.map((movie) => {
-				return <MovieCard movie={movie} />;
-			})}
+		<div className="p-4 w-full h-full">
+			<MovieList movies={movies} />
 		</div>
 	);
 };

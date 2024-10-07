@@ -18,7 +18,15 @@ const RouteDetails = () => {
 		};
 		fetch();
 	}, []);
-	return <div>{movie === undefined ? <div>Loading</div> : <MovieCard movie={movie} />}</div>;
+	return (
+		<div className="p-4 w-full h-full">
+			{movie === undefined ? (
+				<div>Loading</div>
+			) : (
+				<MovieCard movie={movie} condensed={false} />
+			)}
+		</div>
+	);
 };
 
 export default RouteDetails;
