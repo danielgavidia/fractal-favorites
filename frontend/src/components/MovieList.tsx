@@ -7,8 +7,8 @@ interface MovieListProps {
 const MovieList = ({ movies }: MovieListProps) => {
 	return (
 		<div>
-			{movies.map((movie) => {
-				return <div>{movie.title}</div>;
+			{movies.map((movie, index) => {
+				return <div key={index}>{movie.title}</div>;
 			})}
 		</div>
 	);

@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 const Root = () => {
 	const navigate = useNavigate();
 	return (
-		<div>
+		<div className="w-screen h-screen">
 			{/* Navbar */}
 			<div>
 				<div>
@@ -17,7 +17,9 @@ const Root = () => {
 				</div>
 			</div>
 			{/* Outlet */}
-			<Outlet />
+			<div className="w-full h-full">
+				<Outlet />
+			</div>
 		</div>
 	);
 };
