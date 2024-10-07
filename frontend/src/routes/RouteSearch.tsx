@@ -18,7 +18,7 @@ const RouteSearch = () => {
 	// Fetch movies
 	useEffect(() => {
 		const fetchMovies = async () => {
-			const res = await getMovies();
+			const res: Movie[] = await getMovies();
 			setMovies(res);
 		};
 		fetchMovies();
