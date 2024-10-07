@@ -1,5 +1,5 @@
 import express from "express";
-import { getMovies, getMoviesFavorites } from "../prisma/utils";
+import { getMovies, getMoviesFavorites, getMoviesDescription } from "../prisma/utils";
 import { stringToBoolean } from "../utils/stringToBoolean";
 import type { Movie } from "../types/types";
 
@@ -36,6 +36,20 @@ app.get("/movies/favorites", async (req, res) => {
 		if (favoriteString !== undefined) {
 			const favorite: boolean = stringToBoolean(favoriteString);
 			const movies: Movie[] = await getMoviesFavorites(favorite);
+			res.status(200).send(movies);
+		}
+	} catch (e) {
+		res.status(400).send(e);
+	}
+});
+
+// Get all movies querying on key words on description
+app.get("/movies/description", async (req, res) => {
+	try {
+		const description: string | undefined = req.query.description?.toString();
+		console.log(description);
+		if (description !== undefined) {
+			const movies: Movie[] = await getMoviesDescription(description);
 			res.status(200).send(movies);
 		}
 	} catch (e) {

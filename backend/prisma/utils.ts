@@ -16,12 +16,30 @@ export const getMoviesFavorites = async (favorites: boolean): Promise<Movie[]> =
 			},
 		});
 		return res;
-	} else {
+	} else if (!favorites) {
 		const res: Movie[] = await prisma.movie.findMany({
 			where: {
 				favorite: false,
 			},
 		});
 		return res;
+	} else {
+		return [];
+	}
+};
+
+// get all movies, filtering for key words in description
+export const getMoviesDescription = async (description: string): Promise<Movie[]> => {
+	if (description) {
+		const res: Movie[] = await prisma.movie.findMany({
+			where: {
+				description: {
+					contains: description,
+				},
+			},
+		});
+		return res;
+	} else {
+		return [];
 	}
 };
