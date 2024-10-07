@@ -1,3 +1,4 @@
+import MovieCard from "./MovieCard";
 import type { Movie } from "../../../backend/types/types";
 
 interface MovieListProps {
@@ -8,7 +9,7 @@ const MovieList = ({ movies }: MovieListProps) => {
 	return (
 		<div>
 			{movies.map((movie, index) => {
-				return <div key={index}>{movie.title}</div>;
+				return <MovieCard key={index} movie={movie} />;
 			})}
 		</div>
 	);
