@@ -1,5 +1,11 @@
 import express from "express";
-import { getMovie, getMovies, getMoviesFavorites, getMoviesDescription } from "../prisma/utils";
+import {
+	getMovie,
+	getMovies,
+	getMoviesFavorites,
+	getMoviesDescription,
+	updateMovieFavoriteStatus,
+} from "../prisma/utils";
 import { stringToBoolean } from "../utils/stringToBoolean";
 import type { Movie } from "../types/types";
 
@@ -53,4 +59,12 @@ app.get("/movies/descriptions", async (req, res) => {
 		const movies: Movie[] = await getMoviesDescription(description);
 		res.status(200).send(movies);
 	}
+});
+
+// Update favorite status in a particular movie
+app.put("/movies/update/favorite/:id/:favorite", async (req, res) => {
+	const id = req.params.id;
+	const favorite: boolean = stringToBoolean(req.params.favorite);
+	const updatedMovie: Movie = await updateMovieFavoriteStatus(id, favorite);
+	res.status(200).send(updatedMovie);
 });

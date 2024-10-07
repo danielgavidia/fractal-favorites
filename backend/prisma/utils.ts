@@ -60,3 +60,16 @@ export const getMoviesDescription = async (description: string): Promise<Movie[]
 		return [];
 	}
 };
+
+// Update movie favorite status
+export const updateMovieFavoriteStatus = async (id: string, favorite: boolean): Promise<Movie> => {
+	const res: Movie = await prisma.movie.update({
+		where: {
+			id: id,
+		},
+		data: {
+			favorite: favorite,
+		},
+	});
+	return res;
+};

@@ -34,11 +34,20 @@ export const getMoviesFavorites = async (favorite: boolean): Promise<Movie[]> =>
 
 // Get all movies, filtering for key words in description
 export const getMoviesDescription = async (description: string): Promise<Movie[]> => {
-	console.log(description);
 	const res = await axios({
 		method: "GET",
 		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/descriptions?description=${description}`,
 	});
 	const data: Movie[] = res.data;
+	return data;
+};
+
+// Update favorite status in a particular movie
+export const updateMovieFavoriteStatus = async (id: string, favorite: boolean): Promise<Movie> => {
+	const res = await axios({
+		method: "PUT",
+		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/update/favorite/${id}/${favorite}`,
+	});
+	const data: Movie = res.data;
 	return data;
 };
