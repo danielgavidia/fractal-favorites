@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMovie } from "../utils/express";
 import type { Movie } from "../../../backend/types/types";
 
@@ -8,6 +8,7 @@ import MovieCard from "../components/MovieCard";
 const RouteDetails = () => {
 	const [movie, setMovie] = useState<Movie>();
 	const { movieId } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetch = async () => {
@@ -23,7 +24,7 @@ const RouteDetails = () => {
 			{movie === undefined ? (
 				<div>Loading</div>
 			) : (
-				<MovieCard movie={movie} condensed={false} />
+				<MovieCard movie={movie} condensed={false} navigate={navigate} />
 			)}
 		</div>
 	);
