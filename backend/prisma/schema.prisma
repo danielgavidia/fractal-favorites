@@ -7,6 +7,19 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model User {
+    // defaults
+    id        String   @id @default(uuid()) // or cuid
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // fields
+    firebaseId String @unique @default("")
+    email      String @default("")
+
+    // relationships
+}
+
 model Movie {
     // defaults
     id        String   @id @default(uuid()) // or cuid
