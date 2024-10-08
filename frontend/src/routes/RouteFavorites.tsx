@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Movie } from "../../../backend/types/types";
-import { getMoviesFavorites } from "../utils/express";
+import { getUserMovies } from "../utils/express";
 import MovieList from "../components/MovieList";
 
 const RouteFavorites = () => {
@@ -9,7 +9,7 @@ const RouteFavorites = () => {
 	// Fetch movies
 	useEffect(() => {
 		const fetchMovies = async () => {
-			const res: Movie[] = await getMoviesFavorites(true);
+			const res: Movie[] = await getUserMovies();
 			setMovies(res);
 		};
 		fetchMovies();

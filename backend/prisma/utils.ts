@@ -1,5 +1,41 @@
 import prisma from "./prisma";
-import type { Movie } from "../types/types";
+import type { Movie, User } from "../types/types";
+
+// Add movie to user's list
+export const addUserMovie = async (firebaseId: string, movieId: string): Promise<User> => {
+	// Update user
+	const updatedUser: User = await prisma.user.update({
+		where: {
+			firebaseId: firebaseId,
+		},
+		data: {
+			movies: {
+				connect: { id: movieId },
+			},
+		},
+		include: {
+			movies: true, // optional, add user's movies in response
+		},
+	});
+	return updatedUser;
+};
+
+// Get all of a user's movies
+export const getUserMovies = async (firebaseId: string): Promise<Movie[]> => {
+	const user = await prisma.user.findUnique({
+		where: {
+			firebaseId: firebaseId,
+		},
+		include: {
+			movies: true,
+		},
+	});
+	if (!user) {
+		throw new Error("User not found");
+	}
+	const movies: Movie[] = user.movies;
+	return movies;
+};
 
 // Get single movie, using id
 export const getMovie = async (id: string): Promise<Movie> => {
@@ -20,27 +56,6 @@ export const getMovies = async (): Promise<Movie[]> => {
 	return res;
 };
 
-// Get all movies, filtering for favorites
-export const getMoviesFavorites = async (favorites: boolean): Promise<Movie[]> => {
-	if (favorites) {
-		const res: Movie[] = await prisma.movie.findMany({
-			where: {
-				favorite: true,
-			},
-		});
-		return res;
-	} else if (!favorites) {
-		const res: Movie[] = await prisma.movie.findMany({
-			where: {
-				favorite: false,
-			},
-		});
-		return res;
-	} else {
-		return [];
-	}
-};
-
 // Get all movies, filtering for key words in description
 export const getMoviesDescription = async (description: string): Promise<Movie[]> => {
 	if (description) {
@@ -59,17 +74,4 @@ export const getMoviesDescription = async (description: string): Promise<Movie[]
 	} else {
 		return [];
 	}
-};
-
-// Update movie favorite status
-export const updateMovieFavoriteStatus = async (id: string, favorite: boolean): Promise<Movie> => {
-	const res: Movie = await prisma.movie.update({
-		where: {
-			id: id,
-		},
-		data: {
-			favorite: favorite,
-		},
-	});
-	return res;
 };

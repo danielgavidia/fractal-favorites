@@ -1,5 +1,6 @@
 import axios from "axios";
-import type { Movie } from "../../../backend/types/types";
+import type { Movie, User } from "../../../backend/types/types";
+import { getAuth } from "firebase/auth";
 
 // Get single movie
 export const getMovie = async (id: string): Promise<Movie> => {
@@ -21,17 +22,6 @@ export const getMovies = async (): Promise<Movie[]> => {
 	return data;
 };
 
-// Get all movies, filtering for favorites
-export const getMoviesFavorites = async (favorite: boolean): Promise<Movie[]> => {
-	const favoriteString = favorite.toString();
-	const res = await axios({
-		method: "GET",
-		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/favorites?favorite=${favoriteString}`,
-	});
-	const data: Movie[] = res.data;
-	return data;
-};
-
 // Get all movies, filtering for key words in description
 export const getMoviesDescription = async (description: string): Promise<Movie[]> => {
 	const res = await axios({
@@ -42,12 +32,41 @@ export const getMoviesDescription = async (description: string): Promise<Movie[]
 	return data;
 };
 
-// Update favorite status in a particular movie
-export const updateMovieFavoriteStatus = async (id: string, favorite: boolean): Promise<Movie> => {
+// Add movie to user favorites
+export const addUserMovie = async (movieId: string): Promise<User> => {
+	const auth = getAuth();
+	const user = auth.currentUser;
+	if (!user) {
+		throw new Error("User not authenticated");
+	}
+
+	const idToken = await user?.getIdToken();
 	const res = await axios({
-		method: "PUT",
-		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/update/favorite/${id}/${favorite}`,
+		method: "POST",
+		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/user/addmovie/${movieId}`,
+		headers: {
+			Authorization: `Bearer ${idToken}`,
+		},
 	});
-	const data: Movie = res.data;
+	const data: User = res.data;
+	return data;
+};
+
+// Get all of a user's movies
+export const getUserMovies = async (): Promise<Movie[]> => {
+	const auth = getAuth();
+	const user = auth.currentUser;
+	if (!user) {
+		throw new Error("User not authenticated");
+	}
+	const idToken = await user.getIdToken();
+	const res = await axios({
+		method: "POST",
+		url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/movies/user`,
+		headers: {
+			Authorization: `Bearer ${idToken}`,
+		},
+	});
+	const data: Movie[] = res.data;
 	return data;
 };
