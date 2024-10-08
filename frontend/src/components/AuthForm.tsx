@@ -19,19 +19,23 @@ const AuthForm = ({ authOperation }: AuthProps) => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleFirebaseAuth}>
+		<div className="h-full w-full items-center flex justify-center">
+			<form onSubmit={handleFirebaseAuth} className="w-96 flex flex-col mb-40">
 				<input
 					onChange={(e) => setEmail(e.target.value)}
 					placeholder="email"
-					className="border-2 border-neutral"
+					className="border-[0.5px] border-neutral-content rounded-lg p-2 m-2 outline-none"
 				/>
 				<input
 					onChange={(e) => setPassword(e.target.value)}
 					placeholder="password"
-					className="border-2 border-neutral"
+					type="password"
+					className="border-[0.5px] border-neutral-content rounded-lg p-2 m-2 outline-none"
 				/>
-				<button onClick={handleFirebaseAuth} className="border-2 border-neutral">
+				<button
+					onClick={handleFirebaseAuth}
+					className="border-[0.5px] border-neutral border-neutral-content text-base-100 p-2 m-2 rounded-lg bg-accent"
+				>
 					{authOperation === "login" ? "Login" : "Signup"}
 				</button>
 			</form>
