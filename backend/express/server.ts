@@ -50,8 +50,6 @@ app.post("/user/signup", verifyFirebaseToken, async (req, res) => {
 	res.status(200).json({ user: user });
 });
 
-// Signup route
-
 // Application
 // Get single movie using id
 app.get("/movies/individual/:id", async (req, res) => {
