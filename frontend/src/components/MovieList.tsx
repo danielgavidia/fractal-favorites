@@ -11,7 +11,7 @@ interface MovieListProps {
 
 const MovieList = ({ movies, navigate }: MovieListProps) => {
 	const [currentPage, setCurrentPage] = useState(0);
-	const moviesPerPage = 6;
+	const moviesPerPage = 4;
 
 	// Calculate total pages
 	const totalPages = Math.ceil(movies.length / moviesPerPage);
@@ -23,9 +23,9 @@ const MovieList = ({ movies, navigate }: MovieListProps) => {
 		return movies.slice(start, end);
 	};
 	return (
-		<div className="flex flex-col h-full">
+		<div className="flex flex-col h-full items-center">
 			{/* Display the current chunk of movies */}
-			<div className="grid grid-cols-3">
+			<div className="grid grid-cols-4 p-2">
 				{getMoviesForPage(currentPage).map((movie, index) => {
 					if (index < 6) {
 						return (
@@ -40,11 +40,17 @@ const MovieList = ({ movies, navigate }: MovieListProps) => {
 				})}
 			</div>
 			{/* Pagination buttons */}
-			{Array.from({ length: totalPages }).map((_, index) => (
-				<button key={index} onClick={() => setCurrentPage(index)}>
-					{index + 1}
-				</button>
-			))}
+			<div className="flex justify-between space-x-3 p-4">
+				{Array.from({ length: totalPages }).map((_, index) => (
+					<button
+						key={index}
+						onClick={() => setCurrentPage(index)}
+						className="p-2 border-[0.5px] border-neutral-content rounded-lg shadow-lg"
+					>
+						{index + 1}
+					</button>
+				))}
+			</div>
 		</div>
 	);
 };

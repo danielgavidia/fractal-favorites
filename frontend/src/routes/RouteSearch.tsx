@@ -27,7 +27,7 @@ const RouteSearch = () => {
 	}, []);
 
 	return (
-		<div className="w-full h-full bg-primary-content p-4">
+		<div className="w-full h-full bg-base-100 p-4 flex flex-col">
 			<SearchBar handleSearchMovies={handleSearchMovies} />
 			<MovieList movies={movies} navigate={navigate} />
 		</div>
