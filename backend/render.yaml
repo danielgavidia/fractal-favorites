@@ -4,7 +4,7 @@ services:
       env: node
       plan: free
       buildCommand: |
-          npm install
+          bun install
           npx prisma generate
       startCommand: bun run express/server.ts
       envVars:
