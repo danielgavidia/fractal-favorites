@@ -40,14 +40,14 @@ app.post("/authenticate", verifyFirebaseToken, (req, res) => {
 app.post("/user/login", verifyFirebaseToken, async (req, res) => {
 	const { firebaseId, email } = req.body;
 	const user: User = await getUserLogin(firebaseId, email);
-	res.status(200).json({ user: user });
+	res.status(200).json(user);
 });
 
 // Sign up route
 app.post("/user/signup", verifyFirebaseToken, async (req, res) => {
 	const { firebaseId, email } = req.body;
 	const user: User = await getUserSignup(firebaseId, email);
-	res.status(200).json({ user: user });
+	res.status(200).json(user);
 });
 
 // Application

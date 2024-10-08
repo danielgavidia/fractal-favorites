@@ -19,14 +19,15 @@ export const firebaseAuth = async (
 			password
 		);
 		const idToken: string = await userCredential.user.getIdToken();
-		const res: User = await axios({
+		const res = await axios({
 			method: "POST",
-			url: `${import.meta.env.BASE_URL}/user/login`,
+			url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/user/login`,
 			headers: {
 				Authorization: `Bearer ${idToken}`,
 			},
 		});
-		return res;
+		const data: User = res.data;
+		return data;
 	} else {
 		const userCredential: UserCredential = await createUserWithEmailAndPassword(
 			auth,
@@ -34,13 +35,14 @@ export const firebaseAuth = async (
 			password
 		);
 		const idToken: string = await userCredential.user.getIdToken();
-		const res: User = await axios({
+		const res = await axios({
 			method: "POST",
-			url: `${import.meta.env.BASE_URL}/user/signup`,
+			url: `${import.meta.env.VITE_EXPRESS_BASE_URL}/user/signup`,
 			headers: {
 				Authorization: `Bearer ${idToken}`,
 			},
 		});
-		return res;
+		const data: User = res.data;
+		return data;
 	}
 };

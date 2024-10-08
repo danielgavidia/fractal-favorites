@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { firebaseAuth } from "../utils/expressAuth";
+import { User } from "../../../backend/types/types";
 
 interface AuthProps {
 	authOperation: "login" | "signup";
@@ -11,7 +12,7 @@ const AuthForm = ({ authOperation }: AuthProps) => {
 
 	const handleFirebaseAuth = async (e: React.FormEvent): Promise<void> => {
 		e.preventDefault();
-		const res = await firebaseAuth(email, password, authOperation);
+		const res: User = await firebaseAuth(email, password, authOperation);
 		console.log(`Login for email: ${res.email}`);
 		setEmail("");
 		setPassword("");
