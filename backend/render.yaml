@@ -1,6 +1,6 @@
 services:
     - type: web
-      name: fractal-hangman-backend
+      name: fractal-favorites-backend
       env: node
       plan: free
       buildCommand: |
