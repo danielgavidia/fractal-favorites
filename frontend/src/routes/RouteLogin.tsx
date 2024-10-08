@@ -2,7 +2,7 @@ import AuthForm from "../components/AuthForm";
 
 const RouteLogin = () => {
 	return (
-		<div>
+		<div className="w-full h-full">
 			<AuthForm authOperation="login" />
 		</div>
 	);

@@ -19,11 +19,11 @@ const SearchBar = ({ handleSearchMovies }: SearchBarProps) => {
 					onChange={(e) => setSearch(e.target.value)}
 					value={search}
 					placeholder="Search movies"
-					className="w-full bg-primary-content p-2 border-[0.5px] border-neutral-content rounded-lg"
+					className="w-full bg-base-100 p-2 border-[0.5px] border-neutral-content rounded-lg outline-none"
 				/>
 				<button
 					onClick={handleFormSubmit}
-					className="bg-blue-100 ml-2 bg-primary-content text-neutral-content border-[0.5px] border-neutral-content rounded-lg p-2"
+					className="bg-blue-100 ml-2 bg-accent text-base-100 text-sm rounded-lg p-2"
 				>
 					Submit
 				</button>
