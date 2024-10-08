@@ -7,7 +7,9 @@ import {
 	updateMovieFavoriteStatus,
 } from "../prisma/utils";
 import { stringToBoolean } from "../utils/stringToBoolean";
-import type { Movie } from "../types/types";
+import type { Movie, User } from "../types/types";
+import { verifyFirebaseToken } from "./middleware";
+import { getUserLogin, getUserSignup } from "../prisma/utilsAuth";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,8 +29,30 @@ app.listen(port, () => {
 	console.log(`Server running at http://localhost:${port}`);
 });
 
-// Application
+// Authentication
+// Authentication test
+app.post("/authenticate", verifyFirebaseToken, (req, res) => {
+	const firebaseId = req.body.firebaseId;
+	res.status(200).json({ firebaseId: firebaseId });
+});
 
+// Login route
+app.post("/user/login", verifyFirebaseToken, async (req, res) => {
+	const { firebaseId, email } = req.body;
+	const user: User = await getUserLogin(firebaseId, email);
+	res.status(200).json({ user: user });
+});
+
+// Sign up route
+app.post("/user/signup", verifyFirebaseToken, async (req, res) => {
+	const { firebaseId, email } = req.body;
+	const user: User = await getUserSignup(firebaseId, email);
+	res.status(200).json({ user: user });
+});
+
+// Signup route
+
+// Application
 // Get single movie using id
 app.get("/movies/individual/:id", async (req, res) => {
 	const id = req.params.id;
