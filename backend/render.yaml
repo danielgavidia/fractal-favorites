@@ -1,0 +1,19 @@
+services:
+    - type: web
+      name: fractal-hangman-backend
+      env: node
+      plan: free
+      buildCommand: |
+          npm install
+          npx prisma generate
+      startCommand: bun run express/server.ts
+      envVars:
+          - key: DATABASE_URL
+            sync: false
+          - key: DIRECT_URL
+            sync: false
+          - key: FRONTEND_URL
+            sync: false
+          - key: PORT
+            value: 3000
+      autoDeploy: true
