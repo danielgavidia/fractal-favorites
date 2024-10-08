@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../firebase/AuthProvider";
 import { useContext } from "react";
-import { auth } from "../firebase/firebaseConfig";
+// import { auth } from "../firebase/firebaseConfig";
 
 const Root = () => {
 	const authContext = useContext(AuthContext);
@@ -9,10 +9,10 @@ const Root = () => {
 		return null;
 	}
 	const { user } = authContext;
-	console.log(user);
-	const handleSignOut = async () => {
-		await auth.signOut();
-	};
+	// console.log(user);
+	// const handleSignOut = async () => {
+	// 	await auth.signOut();
+	// };
 	const navigate = useNavigate();
 	return (
 		<div className="w-screen h-screen bg-primary-content">

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Movie } from "../../../backend/types/types";
-
-import { updateMovieFavoriteStatus } from "../utils/express";
+import { addUserMovie } from "../utils/express";
 
 interface MovieCardProps {
 	movie: Movie;
@@ -26,7 +25,7 @@ const MovieCard = ({ movie, condensed }: MovieCardProps) => {
 						{/* <div className="text-xs">{description}</div> */}
 						<img src={imageUrl} className="object-contain p-1" />
 					</button>
-					<button onClick={() => updateMovieFavoriteStatus(id, true)}>Like</button>
+					<button onClick={() => addUserMovie(id)}>Like</button>
 				</div>
 			) : (
 				<div className="h-full flex flex-col m-2 border-[0.5px] border-gray rounded-lg p-2">

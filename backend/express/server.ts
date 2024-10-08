@@ -2,9 +2,7 @@ import express from "express";
 import {
 	getMovie,
 	getMovies,
-	getMoviesFavorites,
 	getMoviesDescription,
-	updateMovieFavoriteStatus,
 	addUserMovie,
 	getUserMovies,
 } from "../prisma/utils";
@@ -54,7 +52,7 @@ app.post("/user/signup", verifyFirebaseToken, async (req, res) => {
 
 // Application
 // Add movie to user's favorites
-app.post("/movies/user/addmovie/:movieid", verifyFirebaseToken, async (req, res) => {
+app.post("/movies/user/addmovie/:movieId", verifyFirebaseToken, async (req, res) => {
 	const { firebaseId } = req.body;
 	const movieId = req.params.movieId;
 	const updatedUser: User = await addUserMovie(firebaseId, movieId);
@@ -81,16 +79,6 @@ app.get("/movies", async (req, res) => {
 	res.status(200).send(movies);
 });
 
-// Get all movies querying on favorites
-app.get("/movies/favorites", async (req, res) => {
-	const favoriteString: string | undefined = req.query.favorite?.toString();
-	if (favoriteString !== undefined) {
-		const favorite: boolean = stringToBoolean(favoriteString);
-		const movies: Movie[] = await getMoviesFavorites(favorite);
-		res.status(200).send(movies);
-	}
-});
-
 // Get all movies querying on key words on description
 app.get("/movies/descriptions", async (req, res) => {
 	const description: string | undefined = req.query.description?.toString();
@@ -98,12 +86,4 @@ app.get("/movies/descriptions", async (req, res) => {
 		const movies: Movie[] = await getMoviesDescription(description);
 		res.status(200).send(movies);
 	}
-});
-
-// Update favorite status in a particular movie
-app.put("/movies/update/favorite/:id/:favorite", async (req, res) => {
-	const id = req.params.id;
-	const favorite: boolean = stringToBoolean(req.params.favorite);
-	const updatedMovie: Movie = await updateMovieFavoriteStatus(id, favorite);
-	res.status(200).send(updatedMovie);
 });
