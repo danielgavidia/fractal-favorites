@@ -6,7 +6,6 @@ import {
 	addUserMovie,
 	getUserMovies,
 } from "../prisma/utils";
-import { stringToBoolean } from "../utils/stringToBoolean";
 import type { Movie, User } from "../types/types";
 import { verifyFirebaseToken } from "./middleware";
 import { getUserLogin, getUserSignup } from "../prisma/utilsAuth";
@@ -17,7 +16,7 @@ const cors = require("cors");
 
 app.use(
 	cors({
-		origin: "*",
+		origin: process.env.FRONTEND_URL,
 	})
 );
 app.use(express.json());

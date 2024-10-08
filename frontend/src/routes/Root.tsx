@@ -8,7 +8,7 @@ const Root = () => {
 	if (!authContext) {
 		return null;
 	}
-	const { user } = authContext;
+	// const { user } = authContext;
 	// console.log(user);
 	// const handleSignOut = async () => {
 	// 	await auth.signOut();
