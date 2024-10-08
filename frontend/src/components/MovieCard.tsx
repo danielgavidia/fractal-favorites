@@ -1,15 +1,15 @@
-import { useNavigate } from "react-router-dom";
 import type { Movie } from "../../../backend/types/types";
 import { addUserMovie } from "../utils/express";
+import { NavigateFunction } from "react-router-dom";
 
 interface MovieCardProps {
 	movie: Movie;
 	condensed: boolean;
+	navigate: NavigateFunction;
 }
 
-const MovieCard = ({ movie, condensed }: MovieCardProps) => {
+const MovieCard = ({ movie, condensed, navigate }: MovieCardProps) => {
 	const { id, title, description, imageUrl } = movie;
-	const navigate = useNavigate();
 
 	return (
 		<>
@@ -22,9 +22,14 @@ const MovieCard = ({ movie, condensed }: MovieCardProps) => {
 						<div className="text-sm font-bold h-20 p-2">
 							<p className="text-start h-full">{title}</p>
 						</div>
-						{/* <div className="text-xs">{description}</div> */}
+						<div className="text-xs">{description}</div>
 						<img src={imageUrl} className="object-contain p-1" />
 					</button>
+					{/* <div className="text-sm font-bold h-20 p-2">
+						<p className="text-start h-full">{title}</p>
+					</div>
+					<div className="text-xs">{description}</div>
+					<img src={imageUrl} className="object-contain p-1" /> */}
 					<button onClick={() => addUserMovie(id)}>Like</button>
 				</div>
 			) : (

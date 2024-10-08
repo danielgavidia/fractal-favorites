@@ -2,12 +2,14 @@ import { useState } from "react";
 
 import MovieCard from "./MovieCard";
 import type { Movie } from "../../../backend/types/types";
+import { NavigateFunction } from "react-router-dom";
 
 interface MovieListProps {
 	movies: Movie[];
+	navigate: NavigateFunction;
 }
 
-const MovieList = ({ movies }: MovieListProps) => {
+const MovieList = ({ movies, navigate }: MovieListProps) => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const moviesPerPage = 6;
 
@@ -26,7 +28,14 @@ const MovieList = ({ movies }: MovieListProps) => {
 			<div className="grid grid-cols-3">
 				{getMoviesForPage(currentPage).map((movie, index) => {
 					if (index < 6) {
-						return <MovieCard key={index} movie={movie} condensed={true} />;
+						return (
+							<MovieCard
+								key={index}
+								movie={movie}
+								condensed={true}
+								navigate={navigate}
+							/>
+						);
 					}
 				})}
 			</div>

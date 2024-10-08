@@ -25,3 +25,5 @@ dist-ssr
 
 # Firebase
 # *firebaseConfig.ts
+
+*storybook.log

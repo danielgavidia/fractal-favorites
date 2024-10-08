@@ -5,9 +5,11 @@ import MovieList from "../components/MovieList";
 import { getMovies, getMoviesDescription } from "../utils/express";
 
 import type { Movie } from "../../../backend/types/types";
+import { useNavigate } from "react-router-dom";
 
 const RouteSearch = () => {
 	const [movies, setMovies] = useState<Movie[]>([]);
+	const navigate = useNavigate();
 
 	// Filter movies based on description
 	const handleSearchMovies = async (description: string): Promise<void> => {
@@ -27,7 +29,7 @@ const RouteSearch = () => {
 	return (
 		<div className="w-full h-full bg-primary-content p-4">
 			<SearchBar handleSearchMovies={handleSearchMovies} />
-			<MovieList movies={movies} />
+			<MovieList movies={movies} navigate={navigate} />
 		</div>
 	);
 };
